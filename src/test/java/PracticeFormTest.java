@@ -1,34 +1,55 @@
+import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
-
 
 public class PracticeFormTest {
 
+    @BeforeAll
+    static void beforeAll() {
+        Configuration.browserSize = "1920x1080";
+        Configuration.baseUrl = "https://demoqa.com";
+        Configuration.pageLoadStrategy = "eager";
+        Configuration.timeout = 5000;
+        Configuration.headless = false;
+    }
     @Test
     void fillPracticeFormTest() {
-        open("https://demoqa.com/automation-practice-form");
+        open("/automation-practice-form");
         $("#firstName").setValue("Nikolai");
         $("#lastName").setValue("Patrakov");
-        $("#userEmail").setValue("testguru@auto.com");
-        $("#gender-radio-1").click();
+        $("#userEmail").setValue("testguru@auto.com").pressTab();
+        $(byText("Male")).click();
         $("#userNumber").setValue("0123456789");
         $("#dateOfBirthInput").click();
         $("[class=react-datepicker__month-select]").selectOptionByValue("2");
         $("[class=react-datepicker__year-select]").selectOptionByValue("1991");
-        $("[class=react-datepicker__day react-datepicker__day--020]").click();
-        $("#subjectsContainer").setValue("e").selectOptionByValue("English");
-        $("#hobbies-checkbox-2").click();
-        $("#uploadPicture").sendKeys("src/test/java/resources/test-picture.jpg");
+        $(byXpath("//div[contains(@aria-label, \"March 20\")]")).click();
+        $("#subjectsInput").click();
+        $("#subjectsInput").setValue("e").pressTab();
+        $(byText("Reading")).click();
+        $("#uploadPicture").sendKeys("C:\\Users\\NPatrakov\\IdeaProjects\\demoqa-tests-34\\src\\test\\java\\resources\\test-picture.jpg");
         $("#currentAddress").setValue("some address");
-        $("#state").selectOptionByValue("NCR");
-        $("#city").selectOptionByValue("Noida");
+        $("#state").scrollIntoView(true).click();
+        $(byText("NCR")).click();
+        $("#city").click();
+        $(byText("Noida")).click();
         $("#submit").click();
 
-
-
-        $("[id=search]").shouldHave(text("https://ru.selenide.org"));
+        $(byText("Thanks for submitting the form")).shouldBe(visible);
+        $(byXpath("//*[@class='modal-content']//tr[1]//td[2]")).shouldHave(text("Nikolai Patrakov"));
+        $(byXpath("//*[@class='modal-content']//tr[2]//td[2]")).shouldHave(text("testguru@auto.com"));
+        $(byXpath("//*[@class='modal-content']//tr[3]//td[2]")).shouldHave(text("Male"));
+        $(byXpath("//*[@class='modal-content']//tr[4]//td[2]")).shouldHave(text("0123456789"));
+        $(byXpath("//*[@class='modal-content']//tr[5]//td[2]")).shouldHave(text("20 March,1991"));
+        $(byXpath("//*[@class='modal-content']//tr[6]//td[2]")).shouldHave(text("English"));
+        $(byXpath("//*[@class='modal-content']//tr[7]//td[2]")).shouldHave(text("Reading"));
+        $(byXpath("//*[@class='modal-content']//tr[8]//td[2]")).shouldHave(text("test-picture.jpg"));
+        $(byXpath("//*[@class='modal-content']//tr[9]//td[2]")).shouldHave(text("some address"));
+        $(byXpath("//*[@class='modal-content']//tr[10]//td[2]")).shouldHave(text("NCR Noida"));
     }
 
 
