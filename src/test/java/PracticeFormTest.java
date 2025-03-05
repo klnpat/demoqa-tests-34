@@ -13,12 +13,13 @@ public class PracticeFormTest {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.timeout = 5000;
         Configuration.headless = false;
     }
     @Test
     void fillPracticeFormTest() {
         open("/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
         $("#firstName").setValue("Nikolai");
         $("#lastName").setValue("Patrakov");
         $("#userEmail").setValue("testguru@auto.com").pressTab();
@@ -31,7 +32,7 @@ public class PracticeFormTest {
         $("#subjectsInput").click();
         $("#subjectsInput").setValue("e").pressTab();
         $(byText("Reading")).click();
-        $("#uploadPicture").sendKeys("C:\\Users\\NPatrakov\\IdeaProjects\\demoqa-tests-34\\src\\test\\java\\resources\\test-picture.jpg");
+        $("#uploadPicture").uploadFromClasspath("test-picture.jpg");
         $("#currentAddress").setValue("some address");
         $("#state").scrollIntoView(true).click();
         $(byText("NCR")).click();
