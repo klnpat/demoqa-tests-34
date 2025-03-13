@@ -12,7 +12,7 @@ public class EnterpriseGithubCheck {
         Configuration.pageLoadStrategy = "eager";
     }
     @Test
-    void EnterprisesPageCheckTest() {
+    void enterprisesPageCheckTest() {
         open("https://github.com/");
         $(".HeaderMenu").$(byText("Solutions")).hover();
         $(".HeaderMenu").$(byText("Enterprises")).click();
