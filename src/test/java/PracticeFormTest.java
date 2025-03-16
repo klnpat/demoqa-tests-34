@@ -40,7 +40,7 @@ public class PracticeFormTest {
         $(byText("Noida")).click();
         $("#submit").click();
 
-        $(byText("Thanks for submitting the form")).shouldBe(visible);
+        $(".modal-content").shouldBe(visible);
         $(byXpath("//*[@class='modal-content']//tr[1]//td[2]")).shouldHave(text("Nikolai Patrakov"));
         $(byXpath("//*[@class='modal-content']//tr[2]//td[2]")).shouldHave(text("testguru@auto.com"));
         $(byXpath("//*[@class='modal-content']//tr[3]//td[2]")).shouldHave(text("Male"));
