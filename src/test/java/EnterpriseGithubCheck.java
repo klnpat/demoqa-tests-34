@@ -9,6 +9,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class EnterpriseGithubCheck {
     @BeforeAll
     static void setupConfig() {
+        Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
     }
     @Test

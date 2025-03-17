@@ -10,6 +10,7 @@ public class DragAndDropCheck {
     @BeforeAll
     static void setupConfig() {
         Configuration.baseUrl = "https://the-internet.herokuapp.com";
+        Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
     }
     @Test
