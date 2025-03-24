@@ -83,6 +83,6 @@ public class PracticeFormTest extends TestBase {
                 .checkSubmitFormAppear(submitFormTitle)
                 .checkResult("Student Name", firstName + " " + lastName)
                 .checkResult("Gender", gender)
-                .checkResult("Mobile", userNumber)
+                .checkResult("Mobile", userNumber);
     }
 }
