@@ -28,6 +28,7 @@ public class PracticeFormTest extends TestBase {
     @Test
     void successfulRegistrationTest() {
         registrationPage.openPage()
+                .removeBanner()
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(userEmail)
@@ -57,6 +58,7 @@ public class PracticeFormTest extends TestBase {
     @Test
     void negativeRegistrationTest() {
         registrationPage.openPage()
+                .removeBanner()
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(userEmailNegative)
@@ -76,6 +78,7 @@ public class PracticeFormTest extends TestBase {
     @Test
     void minimumDataForSubmitTest() {
         registrationPage.openPage()
+                .removeBanner()
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setGender(gender)
