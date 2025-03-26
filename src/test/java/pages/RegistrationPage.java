@@ -8,6 +8,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
+import static utils.RandomUtils.getRandomString;
 
 public class RegistrationPage {
     private SelenideElement firstNameInput = $("#firstName"),
@@ -26,8 +27,6 @@ public class RegistrationPage {
             submitButton = $("#submit"),
             modalDialog = $(".modal-dialog"),
             modalDialogTitle = $("#example-modal-sizes-title-lg");
-
-
 
     CalendarComponent calendarComponent = new CalendarComponent();
     TableComponent tableComponent = new TableComponent();
@@ -144,4 +143,12 @@ public class RegistrationPage {
 
         return this;
     }
+
+    public static String getRandomNegativeEmail() {
+        String emailDomain = "qa.guru";
+
+        return getRandomString(10) + emailDomain;
+    }
+
+
 }

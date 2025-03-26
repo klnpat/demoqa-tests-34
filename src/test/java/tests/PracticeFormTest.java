@@ -1,25 +1,37 @@
 package tests;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
+import static pages.RegistrationPage.getRandomNegativeEmail;
 
 public class PracticeFormTest extends TestBase {
 
-    String firstName = "Nikolai";
-    String lastName = "Patrakov";
-    String userEmail = "testguru@auto.com";
-    String userEmailNegative = "testguruauto.com";
-    String gender = "Male";
-    String userNumber = "0123456789";
-    String userNumberNegative = "012345678";
-    String dayOfBirth = "20";
-    String monthOfBirth = "March";
-    String yearOfBirth = "1991";
-    String subject = "Biology";
-    String hobbies = "Sports";
+    Faker faker = new Faker();
+
+    String firstName = faker.name().firstName();
+    String lastName = faker.name().lastName();
+    String userEmail = faker.internet().emailAddress();
+    String userEmailNegative = getRandomNegativeEmail();
+    String gender = faker.options().option("Male", "Female", "Other");
+    String userNumber = faker.phoneNumber().subscriberNumber(10);
+    String userNumberNegative = faker.phoneNumber().subscriberNumber(9);
+    String dayOfBirth = String.valueOf(faker.number().numberBetween(1, 28));
+    String monthOfBirth = faker.options().option(
+            "January", "February", "March", "April", "May", "June", "July",
+            "August", "September", "October", "November", "December");
+    String yearOfBirth = String.valueOf(faker.number().numberBetween(1900, 2100));
+    String subject = faker.options().option("Maths", "Physics", "Chemistry", "Biology");
+    String hobbies = faker.options().option("Sports", "Reading", "Music");
     String uploadImage = "test-picture.jpg";
-    String currentAddress = "some address";
-    String state = "NCR";
-    String city = "Delhi";
+    String currentAddress = faker.address().fullAddress();
+    String state = faker.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
+    String city = switch (state) {
+        case "NCR" -> faker.options().option("Delhi", "Gurgaon", "Noida");
+        case "Haryana" -> faker.options().option("Karnal", "Panipat");
+        case "Uttar Pradesh" -> faker.options().option("Agra", "Lucknow", "Merrut");
+        case "Rajasthan" -> faker.options().option("Jaipur", "Jaiselmer");
+        default -> "Unknown";
+    };
     String submitFormTitle = "Thanks for submitting the form";
 
 
